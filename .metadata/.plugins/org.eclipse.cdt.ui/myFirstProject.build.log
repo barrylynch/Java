@@ -1,0 +1,7 @@
+12:44:59 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+
+12:44:59 Build Finished. 0 errors, 0 warnings. (took 359ms)
+

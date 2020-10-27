@@ -1,0 +1,14 @@
+package com.javapowertools.taxcalculator;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class TaxRateTest {
+
+    @Test
+    public void testCalculateTaxBracket1() {
+        TaxRate rate = new TaxRate(0, 38000, 0.195);
+        assertEquals(rate.calculateTax(0), 0);
+        assertEquals(rate.calculateTax(10000), 10000 * 0.195);
+    }        
+}

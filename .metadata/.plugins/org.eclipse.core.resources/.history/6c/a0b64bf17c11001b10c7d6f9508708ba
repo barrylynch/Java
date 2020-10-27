@@ -1,0 +1,16 @@
+package com.javapowertools.taxcalculator;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class TaxRateTest {
+	
+	private static final double DELTA = 1e-15;
+
+    @Test
+    public void testCalculateTaxBracket1() {
+        TaxRate rate = new TaxRate(0, 38000, 0.195);
+        assertEquals(rate.calculateTax(0), 0, DELTA);
+        assertEquals(rate.calculateTax(10000), 10000 * 0.195, DELTA);
+    }        
+}

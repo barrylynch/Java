@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="java-ant project" default="run">  
+	
+	<target name="init">
+			
+			<!-- Create the time stamp -->
+			<tstamp />
+			<!-- Create the build directory structure used by compile -->
+			<mkdir dir="bin2" />
+		</target>
+	
+    <target name="run" depends="compile">  
+        <java classname = "com.javatpoint.Hello">  
+            <classpath path="bin2"></classpath>  
+        </java>  
+    </target>  
+    <target name="compile" depends="init">  
+        <javac includeantruntime="false" srcdir="./src" destdir = "bin2"></javac>  
+    </target>  
+</project>  

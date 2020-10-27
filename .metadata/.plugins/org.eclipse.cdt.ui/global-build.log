@@ -1,0 +1,148 @@
+23:52:25 **** Build of configuration Debug for project myFirstProject ****
+make all 
+Building file: ../src/myFirstProject.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/myFirstProject.d" -MT"src/myFirstProject.o" -o "src/myFirstProject.o" "../src/myFirstProject.cpp"
+Finished building: ../src/myFirstProject.cpp
+ 
+Building target: myFirstProject.exe
+Invoking: Cygwin C++ Linker
+g++  -o "myFirstProject.exe" ./src/myFirstProject.o   
+Finished building target: myFirstProject.exe
+ 
+00:05:11 **** Incremental Build of configuration Debug for project myFirstProject ****
+make all 
+make: Nothing to be done for 'all'.
+00:05:24 **** Incremental Build of configuration Debug for project myFirstProject ****
+make all 
+make: Nothing to be done for 'all'.
+00:15:51 **** Incremental Build of configuration Debug for project myFirstProject ****
+make all 
+make: Nothing to be done for 'all'.
+01:30:40 **** Build of configuration Debug for project myFirstProject ****
+make all 
+make: Nothing to be done for 'all'.
+03:09:41 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+03:09:48 **** Build of configuration Debug for project Fibonacci Series ****
+make all 
+Building file: ../Fib.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Fib.d" -MT"Fib.o" -o "Fib.o" "../Fib.cpp"
+../Fib.cpp: In function 'int main()':
+../Fib.cpp:9:7: warning: unused variable 'r' [-Wunused-variable]
+    9 |   int r=0,a=0,n,b=1,i,c;
+      |       ^
+Finished building: ../Fib.cpp
+ 
+Building target: Fibonacci Series.exe
+Invoking: Cygwin C++ Linker
+g++  -o "Fibonacci Series.exe" ./Fib.o   
+Finished building target: Fibonacci Series.exe
+ 
+03:10:11 **** Build of configuration Debug for project myFirstProject ****
+make all 
+Building file: ../src/myFirstProject.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/myFirstProject.d" -MT"src/myFirstProject.o" -o "src/myFirstProject.o" "../src/myFirstProject.cpp"
+Finished building: ../src/myFirstProject.cpp
+ 
+Building target: myFirstProject.exe
+Invoking: Cygwin C++ Linker
+g++  -o "myFirstProject.exe" ./src/myFirstProject.o   
+Finished building target: myFirstProject.exe
+ 
+03:11:02 **** Incremental Build of configuration Debug for project Fibonacci Series ****
+make all 
+make: Nothing to be done for 'all'.
+03:12:38 **** Incremental Build of configuration Debug for project Fibonacci Series ****
+make all 
+make: Nothing to be done for 'all'.
+03:15:49 **** Clean-only build of configuration Debug for project Fibonacci Series ****
+make clean 
+rm -rf ./Fib.o ./Fib.d  "Fibonacci Series.exe"
+ 
+03:15:51 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+03:15:57 **** Build of configuration Debug for project Fibonacci Series ****
+make all 
+Building file: ../Fib.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Fib.d" -MT"Fib.o" -o "Fib.o" "../Fib.cpp"
+Finished building: ../Fib.cpp
+ 
+Building target: Fibonacci Series.exe
+Invoking: Cygwin C++ Linker
+g++  -o "Fibonacci Series.exe" ./Fib.o   
+Finished building target: Fibonacci Series.exe
+ 
+03:16:14 **** Incremental Build of configuration Debug for project Fibonacci Series ****
+make all 
+make: Nothing to be done for 'all'.
+18:12:39 **** Build of configuration Debug for project myFirstProject ****
+make all 
+Building file: ../src/myFirstProject.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/myFirstProject.d" -MT"src/myFirstProject.o" -o "src/myFirstProject.o" "../src/myFirstProject.cpp"
+Finished building: ../src/myFirstProject.cpp
+ 
+Building target: myFirstProject.exe
+Invoking: Cygwin C++ Linker
+g++  -o "myFirstProject.exe" ./src/myFirstProject.o   
+Finished building target: myFirstProject.exe
+ 
+21:11:16 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+11:17:40 **** Build of configuration Debug for project myFirstProject ****
+make all 
+Building file: ../src/myFirstProject.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/myFirstProject.d" -MT"src/myFirstProject.o" -o "src/myFirstProject.o" "../src/myFirstProject.cpp"
+Finished building: ../src/myFirstProject.cpp
+ 
+Building target: myFirstProject.exe
+Invoking: Cygwin C++ Linker
+g++  -o "myFirstProject.exe" ./src/myFirstProject.o   
+Finished building target: myFirstProject.exe
+ 
+16:04:17 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+20:14:13 **** Build of configuration Debug for project myFirstProject ****
+make all 
+Building file: ../src/myFirstProject.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/myFirstProject.d" -MT"src/myFirstProject.o" -o "src/myFirstProject.o" "../src/myFirstProject.cpp"
+Finished building: ../src/myFirstProject.cpp
+ 
+Building target: myFirstProject.exe
+Invoking: Cygwin C++ Linker
+g++  -o "myFirstProject.exe" ./src/myFirstProject.o   
+Finished building target: myFirstProject.exe
+ 
+18:01:36 **** Incremental Build of configuration Debug for project myFirstProject ****
+make all 
+make: Nothing to be done for 'all'.
+12:44:04 **** Clean-only build of configuration Debug for project Fibonacci Series ****
+make clean 
+rm -rf ./Fib.o ./Fib.d  "Fibonacci Series.exe"
+ 
+12:44:12 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 
+12:44:58 **** Clean-only build of configuration Debug for project Fibonacci Series ****
+make clean 
+rm -rf ./Fib.o ./Fib.d  "Fibonacci Series.exe"
+ 
+12:44:59 **** Clean-only build of configuration Debug for project myFirstProject ****
+make clean 
+rm -rf ./src/myFirstProject.o ./src/myFirstProject.d  myFirstProject.exe
+ 

@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class ScreenScraper2 {
+
+	public static void main(String[] args) throws IOException {
+        //text file, should be opening in default text editor
+		// C:\Users\BARRY\eclipse-workspace\Screen Scraping Fotmatter
+		// C:\Users\BARRY\Desktop\BarryStuff\Downloads
+		
+		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+        File file = new File("../../../BARRY/Desktop/BarryStuff/Downloads/tumbledryerslatest.csv");
+        //File file = new File("tumbledryerslatest.csv");
+        
+
+	        BufferedReader br = new BufferedReader(new FileReader(file)); 
+	        
+	        String st; 
+	        StringBuilder sb = new StringBuilder();
+	        while ((st = br.readLine()) != null) {
+	          //System.out.println(st); 
+	          sb.append(st);
+	        } 
+	        System.out.println(sb);
+	        
+	        
+	     // Removes whitespace between a word character and . or ,
+	        String pattern = "\\s{2,}";
+	        System.out.println(sb.toString().replaceAll(pattern, "\\s-\\s"));
+	        
+	        
+	        BufferedWriter writer = new BufferedWriter(new FileWriter("../../../BARRY/Desktop/BarryStuff/Downloads/tumbledryerslatest_Output.csv"));
+	        writer.write(sb.toString());
+	         
+	        writer.close();
+
+        
+        
+        String current = new java.io.File( "." ).getCanonicalPath();
+        System.out.println("Current dir:"+current);
+        
+        String currentDir = System.getProperty("user.dir");
+        System.out.println("Current dir using System:" +currentDir);
+        
+        
+
+    }
+
+}

@@ -1,0 +1,7 @@
+package com.javapowertools.taxcalculator;
+
+import junit.framework.TestCase;
+
+public class TaxRateTest2 extends TestCase {
+
+}

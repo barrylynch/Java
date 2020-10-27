@@ -1,0 +1,86 @@
+package tutuka20;
+
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
+
+public class tutuka20 {
+
+	protected Shell shell;
+
+	/**
+	 * Launch the application.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try {
+			tutuka20 window = new tutuka20();
+			window.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Open the window.
+	 */
+	public void open() {
+		Display display = Display.getDefault();
+		createContents();
+		shell.open();
+		shell.layout();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) {
+				display.sleep();
+			}
+		}
+	}
+
+	/**
+	 * Create contents of the window.
+	 */
+	protected void createContents() {
+		shell = new Shell();
+		shell.setSize(619, 462);
+		shell.setText("SWT Application");
+		
+		Composite composite = new Composite(shell, SWT.NONE);
+		composite.setBounds(125, 56, 295, 140);
+		
+		Button btnBrowse = new Button(composite, SWT.NONE);
+		btnBrowse.setBounds(157, 10, 105, 35);
+		btnBrowse.setText("Browse");
+		
+		Button btnBrowse_1 = new Button(composite, SWT.NONE);
+		btnBrowse_1.setBounds(157, 59, 105, 35);
+		btnBrowse_1.setText("Browse");
+		
+		Button btnNewButton = new Button(composite, SWT.NONE);
+		btnNewButton.setBounds(157, 100, 105, 35);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
+		btnNewButton.setText("Compare");
+		
+		Composite composite_1 = new Composite(shell, SWT.NONE);
+		composite_1.setBounds(125, 202, 376, 158);
+		
+		
+		Button btnNewButton_1 = new Button(composite_1, SWT.NONE);
+		btnNewButton_1.setBounds(215, 123, 105, 35);
+		btnNewButton_1.setText("New Button");
+		
+		Button btnNewButton_2 = new Button(composite_1, SWT.NONE);
+		btnNewButton_2.setBounds(202, 53, 105, 35);
+		btnNewButton_2.setText("New Button");
+		
+		
+
+	}
+}

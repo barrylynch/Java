@@ -1,0 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Average {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] intArray = new int[] {4,5,6,7,8};
+		Average avg = new Average();
+		avg.calculateAverage(intArray);
+	}
+	
+	
+	private double calculateAverage(int [] marks) {
+		  Integer sum = 0;
+
+		  if(!marks.isEmpty()) {
+		    for (Integer mark : marks) {
+		        sum += mark;
+		    }
+		    return sum.doubleValue() / marks.size();
+		  }
+		  return sum;
+		}
+
+}

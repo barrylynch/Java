@@ -1,0 +1,19 @@
+package tutuka17;
+public class MyColorCellRenderer extends DefaultTableCellRenderer {
+
+    private int rowToColor = -1;
+
+    public MyColorCellRenderer() {
+    }
+
+    public void setRowToColor(int row) {
+        rowToColor = row;
+    }
+
+    Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+         if (rowToColor!=-1 && row==rowToColor)
+            setForeground(Color.RED);
+         return super.getTableCellRenderer(table, value, isSelected, hasFocus, row, column);          
+    }
+}

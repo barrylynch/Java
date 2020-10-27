@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;tutuka6.MyJFrame.MultiplyListener&apos; to &apos;ButtonOnelistener&apos;&#x0D;&#x0A;- Original project: &apos;tutuka6&apos;&#x0D;&#x0A;- Original element: &apos;tutuka6.MyJFrame.MultiplyListener&apos;&#x0D;&#x0A;- Renamed element: &apos;tutuka6.MyJFrame.ButtonOnelistener&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;MultiplyListener&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;tutuka6{MyJFrame.java[MyJFrame[MultiplyListener" matchStrategy="1" name="ButtonOnelistener" qualified="false" references="true" similarDeclarations="false" stamp="1600964212062" textual="false" version="1.0"/>
+</session>

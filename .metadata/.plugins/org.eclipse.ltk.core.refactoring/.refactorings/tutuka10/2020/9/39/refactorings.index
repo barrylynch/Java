@@ -1,0 +1,11 @@
+1601137315637	Rename field 'unMatchedFile1'
+1601137328415	Rename field 'unMatchedFile2'
+1601137413255	Rename field 'unMatchedFile1Size'
+1601137428551	Rename field 'unMatchedFile2Size'
+1601137503243	Rename field 'File1Size'
+1601137517262	Rename field 'File2Size'
+1601137532365	Rename field 'TotalRecordsInFile1'
+1601137543396	Rename field 'totalRecordsinFile2'
+1601138023355	Rename method 'CreateJPanel2'
+1601138606161	Rename local variable 'j3'
+1601143644300	Copy compilation units

@@ -1,0 +1,14 @@
+package com.javapowertools.taxcalculator;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TaxRateTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

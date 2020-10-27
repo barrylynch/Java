@@ -1,0 +1,30 @@
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.magicwerk.brownies.collections.BigList;
+
+public class Average {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//int[] intArray = new int[] {4,5,6,7,8};
+		BigList<Integer> list = new BigList <Integer>();
+		Average avg = new Average();
+		avg.calculateAverage(list);
+	}
+	
+	
+	private BigInteger calculateAverage(BigList<Integer> list) {
+		  BigInteger sum = new BigInteger(0, null);
+
+		  if(!list.isEmpty()) {
+		    for (Integer mark : list) {
+		        sum += mark;
+		    }
+		    return sum.doubleValue() / list.size();
+		  }
+		  return sum;
+		}
+
+}

@@ -1,0 +1,499 @@
+package tutuka18;
+
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Vector;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+
+public class MyJFrame extends JFrame {
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Vector<Transaction> transReadFromFile1 = null; 
+	private Vector<Transaction> transReadFromFile2 = null; 
+	private int numMatched = 0;
+	private int totalRecordsInFile1 = 0;
+	private int totalRecordsInFile2 = 0;
+	private int unMatchedTransactionsFromFile1 = 0;
+	private int unMatchedTransactionsFromFile2 = 0;
+	private String file1ChosenName = null;
+	private String file2ChosenName = null;
+	private File file1Chosen = null;
+	private File file2Chosen = null;
+	private Vector<Transaction> unmatchedTransactions1 = null; 
+	private Vector<Transaction> unmatchedTransactions2 = null; 
+
+	// Constructor and entry point
+	public MyJFrame() {
+		
+		createContainerForPanel1();
+		
+        setTitle("Transaction Compare"); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);					// Center window.
+    }
+
+	// Reset class variables and read CSV data from file 1  
+	class GetFile1Data implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	file1Chosen = null;
+        	file1ChosenName = null;
+        	transReadFromFile1 = null;
+        	unmatchedTransactions1 = null;
+        	unmatchedTransactions2 = null;
+        	
+        	file1Chosen = selectFile();
+        	file1ChosenName = file1Chosen.getName();
+        	transReadFromFile1 = ManageData.readCSVData(file1Chosen);
+        	createContainerForPanel1();
+        }
+    }//end inner class GetFile1Data
+	
+	// Reset class variables and read CSV data from file 2
+	class GetFile2Data implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	file2Chosen = null;
+        	file2ChosenName = null;
+        	transReadFromFile2 = null;
+        	unmatchedTransactions1 = null;
+        	unmatchedTransactions2 = null;
+        	
+        	file2Chosen = selectFile();
+        	file2ChosenName = file2Chosen.getName();
+        	transReadFromFile2 = ManageData.readCSVData(file2Chosen);
+        	createContainerForPanel1();
+        }
+    }//end inner class GetFile2Data
+	
+	// Reset class variables and get matching summary
+	class GetMatchData implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	unmatchedTransactions1 = null;
+        	unmatchedTransactions2 = null;
+        	getMatchingSummary();	
+        }
+    }//end inner class GetMatchData
+    
+	// Create All 3 panels
+	class UnmatchedData implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        	CreateContainerForJPanel1And2And3();
+        }
+    }//end inner class UnmatchedData
+   
+	// Get no. of transactions in each file, how many match and how many do not match
+	public void getMatchingSummary() {
+		
+		if(transReadFromFile1 != null && transReadFromFile2 != null)
+    	{
+    		totalRecordsInFile1 = transReadFromFile1.size();
+    		totalRecordsInFile2 = transReadFromFile2.size();
+    		numMatched = ManageData.matchData(transReadFromFile1, transReadFromFile2);	
+    		unMatchedTransactionsFromFile1 = ManageData.unmatched( numMatched, transReadFromFile1);
+    		unMatchedTransactionsFromFile2 = ManageData.unmatched( numMatched, transReadFromFile2);
+        	
+        	CreateContainerForJPanel1And2();
+    	}
+	}
+
+	// Select file
+    public File selectFile() {
+    
+        JFileChooser chooser = null;
+        chooser = new JFileChooser();
+        File file = null;
+        
+        chooser.setCurrentDirectory(new File("C:/USERS/Barry/Desktop/BarryStuff/Personal Stuff/cv/tutuka"));
+        // optionally set chooser options ...
+        
+        chooser.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
+		chooser.addChoosableFileFilter(filter);
+        
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            file = chooser.getSelectedFile();	
+  
+        } else {
+            // user changed their mind
+        }
+        return file;
+    }    
+    
+    public void createContainerForPanel1()
+    {
+    	JPanel jpanelContainer = new JPanel();
+		JPanel jpanel;
+		
+		jpanel = CreateJPanel1();
+		jpanelContainer.add(jpanel);
+		
+		//this.setSize(300,200);
+		setContentPane(jpanelContainer);
+        pack();  
+        setVisible(true);
+    }
+	
+	public void CreateContainerForJPanel1And2And3(){
+		        
+    	JPanel jpanelContainer = new JPanel();
+		JPanel jpanel1;
+    	JPanel jpanel2;
+    	JPanel jpanel3;
+    	
+    	if(unMatchedTransactionsFromFile1 > 0)
+    	{
+    		unmatchedTransactions1 = null;
+    		unmatchedTransactions1 = ManageData.getUnmatchedOutput(transReadFromFile1);  
+    	}
+    	if(unMatchedTransactionsFromFile2 > 0)
+    	{
+    		unmatchedTransactions2 = null;
+    		unmatchedTransactions2 = ManageData.getUnmatchedOutput(transReadFromFile2);  
+    	}
+    	
+    	setUnmatchedTransactions();
+    	jpanel1 = CreateJPanel1( );
+    	jpanel2 = CreateJPanel2ContainerForPanel2AAnd2B( );
+    	jpanel3 = CreateJPanel3( unmatchedTransactions1, unmatchedTransactions2);
+    	
+    	jpanelContainer.add(jpanel1);
+        jpanelContainer.add(jpanel2);
+        jpanelContainer.add(jpanel3);
+        
+        jpanelContainer.setLayout(new BoxLayout(jpanelContainer, BoxLayout.Y_AXIS));
+        
+        setContentPane(jpanelContainer);
+        pack();
+        setVisible(true);
+	}
+    
+	public void CreateContainerForJPanel1And2(){
+		
+    	JPanel jpanelContainer = new JPanel();
+		JPanel jpanel1;
+    	JPanel jpanel2;
+               
+    	jpanel1 = CreateJPanel1();
+    	jpanel2 = CreateJPanel2ContainerForPanel2AAnd2B();
+        
+        jpanelContainer.add(jpanel1);
+        jpanelContainer.add(jpanel2);
+        
+    	jpanelContainer.setLayout(new BoxLayout(jpanelContainer, BoxLayout.Y_AXIS));
+        
+        setContentPane(jpanelContainer);
+        pack();
+        setVisible(true);
+	}
+    
+    public JPanel CreateJPanel1() {
+		JPanel jpanel1 = new JPanel();
+
+        jpanel1.setLayout(new GridBagLayout ());
+        
+        GridBagConstraints c = new GridBagConstraints();
+        
+        c.insets = new Insets(10, 10, 10, 10);
+		
+	    JLabel lbl1 = new JLabel("Select File 1");
+	    JLabel lbl2 = new JLabel("Select File 2");
+	    JTextArea ta1 = null;
+	    JTextArea ta2 = null;
+		
+	    if(file1ChosenName == null)
+	    {
+	    	ta1 = new JTextArea();
+	    }
+	    else {
+	    	ta1 = new JTextArea(file1ChosenName);
+	    }
+	    
+	    if(file2ChosenName == null)
+	    {
+	    	ta2 = new JTextArea();
+	    }
+	    else {
+	    	ta2 = new JTextArea(file2ChosenName);
+	    }
+	    
+        JButton btn1 = new JButton("Browse");
+        JButton btn2 = new JButton("Browse");
+        
+        JButton btn3 = new JButton("Compare");
+		
+        /**********************************************Row 1*******/
+        c.gridx = 0;
+        c.gridy = 0;
+        jpanel1.add(lbl1, c); 
+        
+        c.gridx = 1;
+        c.gridy = 0;
+        jpanel1.add(ta1, c );    
+        
+        c.gridx = 2;
+        c.gridy = 0;
+        jpanel1.add(btn1, c );
+        
+        /**********************************************Row 2*******/   
+        c.gridx = 0;
+        c.gridy = 1;
+        jpanel1.add(lbl2, c);
+        
+        c.gridx = 1;
+        c.gridy = 1;
+        jpanel1.add(ta2, c);
+        
+        c.gridx = 2;
+        c.gridy = 1;
+        jpanel1.add(btn2, c ); 
+        
+        /**********************************************Row 3*******/    
+        
+        c.gridx = 1;
+        c.gridy = 2;
+        jpanel1.add(btn3, c);
+        
+        btn1.addActionListener(new GetFile1Data ());
+        btn2.addActionListener(new GetFile2Data ());
+        btn3.addActionListener(new GetMatchData ());
+        
+        jpanel1.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Specify Files to compare"));
+        
+        return jpanel1;
+	}
+    // create container panel and call two sub panels and add button with listener
+	public JPanel CreateJPanel2ContainerForPanel2AAnd2B(){
+		
+		JPanel jpanel2 = new JPanel();
+		JPanel jpanel2A = null;
+		JPanel jpanel2B = null;
+				
+		jpanel2.setLayout(new GridBagLayout ());
+		GridBagConstraints c = new GridBagConstraints();
+        
+        c.insets = new Insets(10, 10, 10, 10);
+    	
+    	 /**********************************************Row 1*******/
+		jpanel2A = CreateJPanel2A();
+		
+        c.gridx = 0;
+        c.gridy = 0;
+    	jpanel2.add(jpanel2A, c);
+    	    
+    	jpanel2B = CreateJPanel2B();
+    	c.gridx = 1;
+        c.gridy = 0;
+    	jpanel2.add(jpanel2B, c);
+    	    	
+    	/**********************************************Row 2*******/
+    	
+    	JButton btn4 = new JButton("Unmatched Report");
+    	c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 2;
+    	jpanel2.add(btn4, c);
+    	
+        btn4.addActionListener(new UnmatchedData ());
+        
+        jpanel2.setBorder(BorderFactory.createTitledBorder(
+        		BorderFactory.createEtchedBorder(), "Comparison results"));
+        
+        setContentPane(jpanel2);
+        pack();
+        setVisible(true);
+
+        return jpanel2;
+	}
+		
+	// Create panel and add two tables with details of unmatched transactions
+	public JPanel CreateJPanel3(Vector<Transaction> unmatchedTransactions1, 
+			Vector<Transaction> unmatchedTransactions2){
+		
+		JPanel jpanel3 = new JPanel();
+		int sizeOfBiggestVector = 0;
+		
+		if(unmatchedTransactions1 != null && unmatchedTransactions2 != null)
+		{
+			if(unmatchedTransactions1.size() > unmatchedTransactions2.size())
+			{
+				sizeOfBiggestVector = unmatchedTransactions1.size();
+			}
+			else
+			{
+				sizeOfBiggestVector = unmatchedTransactions2.size();
+			}
+	
+			Object[][] data1 = null;
+			data1 = new Object[sizeOfBiggestVector][4];
+			Object[][] data2 = null;
+			data2 = new Object[sizeOfBiggestVector][4];
+			String[] columnNames1 = new String[] {
+					"Date", "Reference", "Amount", "Close Match"
+					};
+		
+			for (int i = 0; i < unmatchedTransactions1.size(); i++) {
+				data1[i][0] = unmatchedTransactions1.get(i).getTransactionDate();
+			    data1[i][1] = unmatchedTransactions1.get(i).getTransactionID();
+			    data1[i][2] = unmatchedTransactions1.get(i).getTransactionAmount();
+			    if(unmatchedTransactions1.get(i).almostMatch.equals(true))
+				{
+					data1[i][3] = "True";
+				}
+				else
+				{
+					data1[i][3] = "false";
+				}
+			}
+		
+			for (int i = 0; i < unmatchedTransactions2.size(); i++) {
+			    data2[i][0] = unmatchedTransactions2.get(i).getTransactionDate();
+			    data2[i][1] = unmatchedTransactions2.get(i).getTransactionID();
+			    data2[i][2] = unmatchedTransactions2.get(i).getTransactionAmount();
+			    if(unmatchedTransactions2.get(i).almostMatch.equals(true))
+				{
+					data2[i][3] = "True";
+				}
+				else
+				{
+					data2[i][3] = "false";
+				}
+			}
+		
+	        JTable table1 = null;
+	        table1 = new JTable(data1, columnNames1);
+	        table1.getColumnModel().getColumn(0).setMinWidth(130);
+	        table1.getColumnModel().getColumn(1).setMinWidth(130);
+	        table1.getColumnModel().getColumn(2).setMinWidth(60);
+	        table1.getColumnModel().getColumn(3).setMinWidth(100);
+	        table1.setPreferredScrollableViewportSize(new Dimension(420, 200));
+	        table1.setFillsViewportHeight(true);
+	        
+	        JTable table2 = null;
+	        table2 = new JTable(data2, columnNames1);
+	        table2.getColumnModel().getColumn(0).setMinWidth(130);
+	        table2.getColumnModel().getColumn(1).setMinWidth(130);
+	        table2.getColumnModel().getColumn(2).setMinWidth(60);
+	        table2.getColumnModel().getColumn(3).setMinWidth(100);
+	        table2.setPreferredScrollableViewportSize(new Dimension(420, 200));
+	        table2.setFillsViewportHeight(true);
+
+	        //Create the scroll pane and add the table to it.
+	        JScrollPane scrollPane1 = new JScrollPane(table1);
+	        JScrollPane scrollPane2 = new JScrollPane(table2);
+	
+	        jpanel3.add(scrollPane1);
+	        jpanel3.add(scrollPane2);
+		}
+    	
+        jpanel3.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Unmatched report"));
+    
+        return jpanel3;
+	}
+	
+	// Create panel and add table with matching summary of file 2
+	public JPanel CreateJPanel2B(){
+		JPanel jpanel2B = new JPanel();
+		String[] columnNames2 = {"Description", "Number"};
+		
+        Object[][] data2 = {
+	    {"Total Records:", totalRecordsInFile2},
+	    {"Matched Records:", numMatched},
+	    {"Unmatched Records:", unMatchedTransactionsFromFile2}
+        };
+
+        JTable table2 = new JTable(data2, columnNames2);
+        
+        table2.getColumnModel().getColumn(0).setPreferredWidth(180);
+        table2.getColumnModel().getColumn(1).setPreferredWidth(40);
+        
+        table2.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table2.setFillsViewportHeight(true);
+
+        //Create the scroll pane and add the table to it.
+        JScrollPane scrollPane2 = new JScrollPane(table2);
+
+        //Add the scroll pane to this panel.
+        add(scrollPane2);
+        
+        jpanel2B.add(table2);
+        
+        jpanel2B.setBorder(BorderFactory.createTitledBorder(
+        		BorderFactory.createEtchedBorder(), file2ChosenName));
+	
+		return jpanel2B;
+	}
+	
+	// Create panel and add table with matching summary of file 1
+	public JPanel CreateJPanel2A(){
+
+		JPanel jpanel2A = new JPanel();
+		
+		String[] columnNames1 = {"Description", "Number"};
+
+        Object[][] data1 = {
+	    {"Total Records:", totalRecordsInFile1},
+	    {"Matched Records:", numMatched},
+	    {"Unmatched Records:", unMatchedTransactionsFromFile1}
+        };
+
+        final JTable table1 = new JTable(data1, columnNames1);
+        table1.getColumnModel().getColumn(0).setPreferredWidth(180);
+        table1.getColumnModel().getColumn(1).setPreferredWidth(40);
+        table1.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        table1.setFillsViewportHeight(true);
+
+        //Create the scroll pane and add the table to it.
+        JScrollPane scrollPane1 = new JScrollPane(table1);
+
+        //Add the scroll pane to this panel.
+        add(scrollPane1);
+        
+        jpanel2A.add(table1);
+        
+        jpanel2A.setBorder(BorderFactory.createTitledBorder(
+        		BorderFactory.createEtchedBorder(), file1ChosenName));
+        
+        return jpanel2A;
+	}
+	
+	// Set Almost matched (every member except one matches) transactions
+	public void setUnmatchedTransactions()
+	{
+		if(unmatchedTransactions1 != null && unmatchedTransactions2 != null)
+		{
+			for (Transaction transaction1 : unmatchedTransactions1) {
+				for (Transaction transaction2 : unmatchedTransactions2) {
+					if(transaction1.almostEquals(transaction2))
+					{
+						transaction1.setAlmostMatch(true);
+						transaction2.setAlmostMatch(true);
+						break;
+					}
+				}			
+			}
+		}
+	}	
+}

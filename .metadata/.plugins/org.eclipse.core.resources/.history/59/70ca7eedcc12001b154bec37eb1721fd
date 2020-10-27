@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<project name="tax-calculator" default="package">
+	
+	<property name="build.dir" location="build"/>
+	<property name="dist.dir" location="dist"/>
+	<property name="build.classes.dir" location="build/classes"/>
+	<property name="src.dir" location="src"/>
+	<property name="lib.dir" location="lib"/>
+	<property name="tests.dir" location="test" />
+	<property name="reports.dir" location="reports" />
+	<property name="reports.data.dir" location="reports/xml" />
+	<property name="reports.html.dir" location="reports/html" />
+	<property name="reports.javadoc" location="reports/javadoc" />
+
+	<property name="test.classes.dir" location="${build.dir}/test-classes" />
+	<property name="external.jar.dir" location="../../External Jars"/>
+	<property name="project-version" value="1.0" />
+		
+	
+	<target name="echo">
+		<property name="myclasspath" refid="test.compile.classpath"/>
+		<echo>Classpath is ${myclasspath}</echo>
+	</target>
+	
+	<path id="compile.classpath">
+	    <fileset dir="${lib.dir}" includes="*.jar" />
+	</path>
+	
+	<path id="jar.classpath">
+		<fileset dir="${lib.dir}" includes="*.jar" />
+		<pathelement location="${build.classes.dir}"/>
+	</path>
+		
+	<path id="test.compile.classpath">
+		<path refid="jar.classpath"/>
+		<fileset dir="${external.jar.dir}" includes="*.jar" />
+	</path>
+	
+	<path id="test.classpath">      
+	    <path refid="test.compile.classpath"/>
+	    <pathelement path="${test.classes.dir}"/>
+	</path>
+	
+
+
+  	<target name="init">
+    	<mkdir dir="${build.classes.dir}" /> 
+    	<mkdir dir="${dist.dir}" />  
+  		<mkdir dir="${test.classes.dir}" />
+  		<mkdir dir="${reports.dir}" />
+  		<mkdir dir="${reports.data.dir}" />
+  		<mkdir dir="${reports.html.dir}" />
+  	</target>
+
+  	<target name="compile" depends="init" description="Compile Java code">
+    	<javac srcdir="${src.dir}" destdir="${build.classes.dir}" classpathref="compile.classpath" 
+    	source="1.8" target="1.8" debug="off" includeantruntime="false"/>
+  	</target>
+	
+	<target name="compile-tests" depends="compile" description="Compile Unit Tests">
+		<javac srcdir="${tests.dir}" destdir="${test.classes.dir}" includeantruntime="false">
+	    	<classpath refid="test.compile.classpath"/>
+	    </javac>
+	</target>
+	
+	<target name="test" depends="compile-tests" description="Run unit tests">
+		<junit printsummary="true" haltonfailure="false" fork="true" failureproperty=
+	         "test.failures">
+			<formatter type="plain"/>
+			<formatter type="brief" usefile="false"/>
+			<formatter type="xml" />
+	    	<classpath refid="test.classpath" />
+			<batchtest todir="${reports.data.dir}">
+				<fileset dir="${test.classes.dir}" includes="**/*Test.class" />
+			</batchtest>
+	        <!--test name="com.javapowertools.taxcalculator.TaxRateTest" /-->	
+	    </junit>
+	</target>
+	
+	<target name="test.report" depends="test" description="Generate HTML unit 
+	     test reports">
+		<junitreport todir="${reports.data.dir}">
+	    	<fileset dir="${reports.data.dir}">
+	        	<include name="TEST-*.xml"/>
+	        </fileset>
+	        <report format="frames" todir="${reports.html.dir}"/>
+	    </junitreport>
+		<fail if="test.failures" message="There were test failures." />
+	</target>
+	
+	<target name="javadoc" depends="compile,init" description="Generate JavaDocs.">        
+    	<javadoc sourcepath="${src.dir}"
+	             destdir="${reports.javadoc}"
+	             author="true"
+	             version="true"
+	             use="true"
+	             access="private"
+	             linksource="true"             
+	             windowtitle="${ant.project.name} API"
+				 classpathref="test.classpath">                      
+	            <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
+	            <bottom><![CDATA[<i>Copyright &#169; 2007 All Rights Reserved.</i>]]></bottom>             
+		</javadoc>        
+	</target>
+
+  	<!--target name="package" depends="compile" description="Generate JAR file">                                                
+    	<jar destfile="${dist.dir}/${ant.project.name}-${project-version}.jar" 
+    		basedir="jar.classpath"/>
+  	</target-->
+	
+	<target name="package" depends="compile" description="Generate JAR file">                                                
+    	<jar destfile="${dist.dir}/${ant.project.name}-${project-version}.jar" >
+  			<fileset dir="${build.classes.dir}"/>
+    		<fileset dir="${lib.dir}"/>
+    		<manifest>
+    			<attribute name="Main-Class" value="com.javapowertools.taxcalculator.TaxCalculator">
+    		</manifest>
+    	</jar>
+  	</target>
+
+  	<target name="clean" description="Deletes generated directories">
+    	<delete dir="${build.dir}" />
+    	<delete dir="${dist.dir}" />
+  		<delete dir="${reports.dir}" />
+  	</target>
+
+</project>

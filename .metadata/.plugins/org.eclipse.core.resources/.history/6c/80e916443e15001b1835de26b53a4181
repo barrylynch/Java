@@ -1,0 +1,94 @@
+package View;
+
+import java.awt.EventQueue;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class MyFrame extends JFrame {
+	private JPanel panel1;
+	private JPanel panel3;
+	private JPanel panel2;
+	private JButton btnNewButton_1;
+	private GroupLayout groupLayout;
+	private static int mode = 1;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MyFrame frame = new MyFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MyFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 463);
+		
+		panel1 = new Panel1();
+		
+		panel2 = new Panel2();
+		
+		panel3 = new Panel3();
+		
+		CreateFrame3();
+	}
+
+
+	protected void CreateFrame3() {
+		groupLayout = new GroupLayout(getContentPane());
+
+			groupLayout.setHorizontalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addComponent(panel3, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
+							.addComponent(panel1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 401, Short.MAX_VALUE))
+						.addContainerGap())
+			);
+		
+
+			groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createSequentialGroup()
+							.addGap(27)
+							.addComponent(panel1, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+							.addGap(33)
+							.addComponent(panel2, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+							.addGap(34)
+							.addComponent(panel3, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+							.addContainerGap()));
+		
+		getContentPane().setLayout(groupLayout);
+		
+	}
+
+	public static int getMode() {
+		return mode;
+	}
+
+	public static void setMode(int mode) {
+		MyFrame.mode = mode;
+	}
+
+}
